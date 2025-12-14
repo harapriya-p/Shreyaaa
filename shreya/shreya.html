@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Shreya 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#0a0a12;
+      color:#ffffff;
+      overflow:hidden
+    }
+
+    .page{
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:40px 20px; text-align:center;
+      opacity:0; pointer-events:none;
+      transition:opacity .6s ease
+    }
+    .page.active{opacity:1; pointer-events:auto}
+
+    h1,h2{font-family:'Playfair Display',serif}
+    h1{font-size:3rem;margin-bottom:8px}
+    h2{font-size:2.2rem;margin-bottom:14px}
+
+    .title{color:#ff5fa2}
+    .name{color:#b388ff;text-shadow:0 0 18px rgba(179,136,255,.9)}
+
+    p{font-size:1.1rem;line-height:1.8;max-width:650px;margin:14px auto;color:#ffffff}
+    .quote{font-style:italic;color:#ff9fcf}
+
+    img{
+      max-width:300px;width:90%;border-radius:22px;
+      box-shadow:0 20px 55px rgba(0,0,0,.8);
+      margin:14px auto
+    }
+
+    button{
+      margin-top:24px;
+      padding:13px 36px;
+      border:none; border-radius:30px;
+      background:linear-gradient(135deg,#ff5fa2,#b388ff);
+      color:#0a0a12;
+      font-size:1rem; font-weight:600;
+      cursor:pointer
+    }
+
+    /* doodles */
+    .doodle{position:absolute;font-size:1.8rem;opacity:.9}
+    .d1{top:8%;left:10%}
+    .d2{top:12%;right:12%}
+    .d3{bottom:14%;left:14%}
+    .d4{bottom:18%;right:16%}
+    .d5{top:45%;left:5%}
+    .d6{top:40%;right:5%}
+
+    /* hearts */
+    .heart{position:fixed; top:-10px; animation:fall 3s linear}
+    @keyframes fall{to{transform:translateY(110vh); opacity:0}}
+
+    /* video reveal */
+    .reveal{
+      opacity:0;
+      transform:scale(.9);
+      animation:revealPop 1.4s ease forwards
+    }
+    @keyframes revealPop{to{opacity:1;transform:scale(1)}}
+
+    video{
+      width:90%;max-width:700px;border-radius:22px;
+      box-shadow:0 0 25px rgba(255,95,162,.6),0 0 60px rgba(179,136,255,.4)
+    }
+  </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="birthday-music.mp3" type="audio/mpeg">
+</audio>
+
+<section class="page active">
+  <span class="doodle d1">🎀</span><span class="doodle d2">✨</span>
+  <span class="doodle d3">💗</span><span class="doodle d4">🌙</span>
+  <span class="doodle d5">🧸</span><span class="doodle d6">🌸</span>
+  <h1 class="title">Happy Birthday</h1>
+  <h1 class="name">Shreya 💖</h1>
+  <p>Tap start to see something cute 🌸</p>
+  <button id="startBtn">Start ➜</button>
+</section>
+
+<section class="page"><img src="/Users/harapriya/Downloads/s1.jpeg"><p class="quote">"Your smile makes everything warmer." 💗</p><button class="next">Next ➜</button></section>
+<section class="page"><img src="/Users/harapriya/Downloads/s2.jpeg"><p class="quote">"Cute heart, beautiful soul." 🌸</p><button class="next">Next ➜</button></section>
+<section class="page"><img src="/Users/harapriya/Downloads/s3.jpeg"><p class="quote">"You make moments special." ✨</p><button class="next">Next ➜</button></section>
+<section class="page"><img src="/Users/harapriya/Downloads/s4.jpeg"><p class="quote">"Soft laughs, strong heart." 🤍</p><button class="next">Next ➜</button></section>
+<section class="page"><img src="/Users/harapriya/Downloads/s5.jpeg"><p class="quote">"Being with you feels easy." 💞</p><button class="next">Next ➜</button></section>
+<section class="page"><img src="/Users/harapriya/Downloads/s6.jpeg"><p class="quote">"A little magic, all you." 🥰</p><button class="next">Next ➜</button></section>
+<section class="page"><img src="/Users/harapriya/Downloads/s7.jpeg"><p class="quote">"You glow when you're happy." ✨</p><button class="next">Next ➜</button></section>
+<section class="page"><img src="/Users/harapriya/Downloads/s8.jpeg"><p class="quote">"Here’s to love and you." 💖</p><button class="next">Next ➜</button></section>
+
+<section class="page">
+  <span class="doodle d1">🎀</span><span class="doodle d2">💌</span>
+  <h2>For You, Shreya 💖</h2>
+  <p>May love, happiness, and gentle moments always find you.</p>
+  <p class="quote">Always here. Always cheering for you 🌷</p>
+  <button id="videoBtn">Surprise 🎁</button>
+</section>
+
+<section class="page" id="videoPage">
+  <span class="doodle d1">💖</span><span class="doodle d2">✨</span>
+  <span class="doodle d3">🧸</span><span class="doodle d4">🌸</span>
+  <p class="quote">Just one last little thing…</p>
+  <video id="finalVideo" controls class="reveal">
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</section>
+
+<script>
+  const pages=document.querySelectorAll('.page');
+  let index=0;
+  const music=document.getElementById('bgMusic');
+
+  function showPage(i){pages.forEach(p=>p.classList.remove('active'));pages[i].classList.add('active');}
+  function hearts(){for(let i=0;i<14;i++){const h=document.createElement('div');h.className='heart';h.textContent='💗';h.style.left=Math.random()*100+'vw';h.style.fontSize=14+Math.random()*20+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),3000);}}
+
+  document.getElementById('startBtn').onclick=()=>{music.play().catch(()=>{});index=1;hearts();showPage(index)};
+  document.querySelectorAll('.next').forEach(b=>b.onclick=()=>{if(index<pages.length-2){index++;hearts();showPage(index)}});
+  document.getElementById('videoBtn').onclick=()=>{hearts();showPage(pages.length-1);setTimeout(()=>{document.getElementById('finalVideo').play().catch(()=>{});},600)};
+</script>
+
+</body>
+</html>
